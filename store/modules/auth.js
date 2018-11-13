@@ -1,8 +1,7 @@
-import axios from 'axios'
+import api from '~/api'
 
 const state = () => ({
-  auth: false,
-  token: null
+  user: null
 })
 
 const getters = {
@@ -15,25 +14,41 @@ const getters = {
 }
 
 const mutations = {
-  SET_AUTH (state, auth) {
-    state.auth = auth
+  SET_USER (store, data) {
+    store.user = data
   },
-  SET_TOKEN (state, token) {
-    state.token = token
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.token
+  RESET_USER (store) {
+    store.user = null
   }
 }
 
 const actions = {
-  setAuth ({ commit }, auth) {
-    commit('SET_AUTH', auth)
+  fetch ({commit}) {
+    return api.auth.me()
+      .then(response => {
+        commit('SET_USER', response.data.result)
+        return response
+      })
+      .catch(error => {
+        commit('RESET_USER')
+        return error
+      })
   },
-  setToken ({ commit }, token) {
-    commit('SET_TOKEN', token)
+  login ({commit}, data) {
+    return api.auth.login(data)
+      .then(response => {
+        commit('SET_USER', response.data.user)
+        return response
+      })
+  },
+  reset ({commit}) {
+    commit('RESET_USER')
+    return Promise.resolve()
   }
 }
 
 export var auth = {
+  namespaced: true,
   state,
   getters,
   mutations,

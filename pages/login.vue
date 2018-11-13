@@ -37,7 +37,7 @@
               color="blue darken-1"
               flat
               :disabled="!valid"
-              @click.native="login()"
+              @click.native="submit()"
             >
               Login
             </v-btn>
@@ -71,6 +71,18 @@
     methods: {
       goTo (path) {
         this.$router.push({ name: path })
+      },
+      submit () {
+        this.$store.dispatch('auth/login', this.credentials)
+        .then(result => {
+          this.$router.push('./')
+        })
+        .catch(error => {
+          this.loading = false
+          if (error.response && error.response.data) {
+            this.alert = {type: 'error', message: error.response.data.message || error.reponse.status}
+          }
+        })
       },
       login () {
         if (this.$refs.form.validate()) {

@@ -18,7 +18,7 @@ const getters = {
 }
 
 const mutations = {
-  setProfile (state, profile) {
+  SET_PROFILE (state, profile) {
     state.profile = profile
     if (profile.photo === undefined) {
       state.profile.photo = defaultPhoto
@@ -29,8 +29,8 @@ const mutations = {
 }
 
 const actions = {
-  actProfile ({ commit }, profile) {
-    commit('setProfile', profile)
+  setProfile ({ commit }, profile) {
+    commit('SET_PROFILE', profile)
   }
 }
 

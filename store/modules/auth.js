@@ -15,21 +15,21 @@ const getters = {
 }
 
 const mutations = {
-  setAuth (state, auth) {
+  SET_AUTH (state, auth) {
     state.auth = auth
   },
-  setToken (state, token) {
+  SET_TOKEN (state, token) {
     state.token = token
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.token
   }
 }
 
 const actions = {
-  actAuth ({ commit }, auth) {
-    commit('setAuth', auth)
+  setAuth ({ commit }, auth) {
+    commit('SET_AUTH', auth)
   },
-  actToken ({ commit }, token) {
-    commit('setToken', token)
+  setToken ({ commit }, token) {
+    commit('SET_TOKEN', token)
   }
 }
 

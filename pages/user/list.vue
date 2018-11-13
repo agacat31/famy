@@ -127,7 +127,6 @@
 <script>
   // import store from '@/store'
   export default {
-    //layout: 'base',
     data () {
       return {
         // Breadcrumbs

@@ -23,32 +23,32 @@ const getters = {
 }
 
 const mutations = {
-  toggleSidebar (state) {
+  TOGGLE_SIDEBAR (state) {
     state.template.sidebar = !state.template.sidebar
   },
-  setDrawer (state, drawer) {
+  SET_DRAWER (state, drawer) {
     state.template.drawer = drawer
   },
-  setDrawerRight (state, drawerRight) {
+  SET_DRAWER_RIGHT (state, drawerRight) {
     state.template.drawerRight = drawerRight
   },
-  setFloatDrawer (state, floatDrawer) {
+  SET_FLOAT_DRAWER (state, floatDrawer) {
     state.template.floatDrawer = floatDrawer
   }
 }
 
 const actions = {
-  actSidebar ({ commit }) {
-    commit('toggleSidebar')
+  setSidebar ({ commit }) {
+    commit('TOGGLE_SIDEBAR')
   },
-  actDrawer ({ commit }, drawer) {
-    commit('setDrawer', drawer)
+  setDrawer ({ commit }, drawer) {
+    commit('SET_DRAWER', drawer)
   },
-  actDrawerRight ({ commit }, drawerRight) {
-    commit('setDrawerRight', drawerRight)
+  setDrawerRight ({ commit }, drawerRight) {
+    commit('SET_DRAWER_RIGHT', drawerRight)
   },
-  actFloatDrawer ({ commit }, floatDrawer) {
-    commit('setFloatDrawer', floatDrawer)
+  setFloatDrawer ({ commit }, floatDrawer) {
+    commit('SET_FLOAT_DRAWER', floatDrawer)
   }
 }
 

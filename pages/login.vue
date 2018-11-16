@@ -51,7 +51,7 @@
   import store from '@/store'
   import { login } from '../store/utils/api'
   export default {
-    layout: 'frontPage',
+    layout: 'fullscreen',
     data: () => ({
       credentials: {
         email: '',
@@ -75,7 +75,10 @@
       submit () {
         this.$store.dispatch('auth/login', this.credentials)
         .then(result => {
-          this.$router.push('./')
+          this.$store.dispatch('auth/fetch')
+          .then(result => {
+            this.$router.push('/main')
+          })
         })
         .catch(error => {
           this.loading = false

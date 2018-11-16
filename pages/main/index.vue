@@ -31,9 +31,11 @@
 
 <script>
 export default {
-  layout: 'fullscreen',
   computed: {
     user () { return (this.$store.state.auth || {}).user || null }
-  }
+  },
+  mounted() {
+    console.log(this.user)
+  },
 }
 </script>

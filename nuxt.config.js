@@ -20,6 +20,9 @@ module.exports = {
     '~/plugins/vuetify.js',
     '~/api/init.js'
   ],
+  router: {
+    middleware: ['auth']
+  },
   css: ['~/assets/style/app.styl'],
   /*
   ** Customize the progress bar color

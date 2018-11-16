@@ -22,6 +22,14 @@
             <v-list-tile-title v-text="item.title"></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>bubble_chart</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title to="#" @click="logOut">Logout</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed app :clipped-left="clipped">
@@ -87,15 +95,22 @@
         drawer: true,
         fixed: false,
         menus: [
+          { icon: 'bubble_chart', title: 'Home', to: '/main' },
+          { icon: 'apps', title: 'Users', to: '/main/user' },
+          { icon: 'bubble_chart', title: 'User Detail', to: '/main/user/aga' },
           { icon: 'apps', title: 'Welcome', to: '/' },
-          { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' },
-          { icon: 'apps', title: 'Users', to: '/user/list' },
-          { icon: 'bubble_chart', title: 'User Detail', to: '/user/aga' }
         ],
         miniVariant: false,
         right: true,
         rightDrawer: false,
         title: 'Vuetify.js'
+      }
+    },
+    methods: {
+      logOut () {
+        this.$store.dispatch('auth/reset').then(() => {
+          this.$router.push('/login')
+        })
       }
     }
   }

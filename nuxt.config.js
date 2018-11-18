@@ -20,6 +20,9 @@ module.exports = {
     '~/plugins/vuetify.js',
     '~/api/init.js'
   ],
+  modules: [
+    ['cookie-universal-nuxt', { alias: 'cookiz' }],
+  ],
   router: {
     middleware: ['auth']
   },

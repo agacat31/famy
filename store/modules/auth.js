@@ -1,6 +1,5 @@
 import api from '~/api'
 import {setAuthToken, resetAuthToken} from '~/utils/auth'
-import cookies from 'js-cookie'
 
 const state = () => ({
   user: null
@@ -37,14 +36,14 @@ const actions = {
     return api.auth.login(data)
       .then(response => {
         setAuthToken(response.data.token)
-        cookies.set('x-access-token', response.data.token, {expires: 7})
+        this.$cookiz.set('x-access-token', response.data.token, {maxAge: 60 * 60 * 24 * 7})
         return response
       })
   },
   reset ({commit}) {
     commit('RESET_USER')
     resetAuthToken()
-    cookies.remove('x-access-token')
+    this.$cookiz.remove('x-access-token')
     return Promise.resolve()
   }
 }

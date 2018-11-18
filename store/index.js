@@ -4,7 +4,6 @@ import { auth } from './modules/auth'
 import { profile } from './modules/profile'
 import { template } from './modules/template'
 import {setAuthToken, resetAuthToken} from '~/utils/auth'
-import cookie from 'cookie'
 
 Vue.use(Vuex)
 
@@ -18,7 +17,7 @@ const store = () => {
     actions: {
       nuxtServerInit ({dispatch}, context) {
         return new Promise((resolve, reject) => {
-          const cookies = cookie.parse(context.req.headers.cookie || '')
+          const cookies = this.$cookiz.getAll()
           if (cookies.hasOwnProperty('x-access-token')) {
             setAuthToken(cookies['x-access-token'])
             dispatch('auth/fetch')

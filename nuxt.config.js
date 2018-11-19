@@ -18,7 +18,8 @@ module.exports = {
   },
   plugins: [
     '~/plugins/vuetify.js',
-    '~/api/init.js'
+    '~/api/init.js',
+    { src: '~/plugins/localStorage.js', ssr: false }
   ],
   modules: [
     ['cookie-universal-nuxt', { alias: 'cookiz' }],

@@ -43,7 +43,7 @@ const actions = {
   reset ({commit}) {
     commit('RESET_USER')
     resetAuthToken()
-    this.$cookiz.remove('x-access-token')
+    this.$cookiz.removeAll()
     return Promise.resolve()
   }
 }

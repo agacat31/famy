@@ -15,7 +15,6 @@
                 label="Email"
                 v-model="credentials.email"
                 :rules="rules.email"
-                :counter="10"
                 required
                 autofocus
               ></v-text-field>
@@ -26,7 +25,6 @@
                 type="password"
                 v-model="credentials.password"
                 :rules="rules.password"
-                :counter="10"
                 required
               ></v-text-field>
             </v-form>
@@ -48,8 +46,7 @@
   </v-container>
 </template>
 <script>
-  import store from '@/store'
-  import { login } from '../store/utils/api'
+  import { mapActions, mapGetters } from 'vuex'
   export default {
     layout: 'fullscreen',
     data: () => ({
@@ -69,49 +66,57 @@
       valid: false
     }),
     methods: {
+      ...mapActions({
+        login: 'auth/login',
+        getUser: 'auth/fetch',
+        setUser: 'profile/setProfile',
+      }),
       goTo (path) {
         this.$router.push({ name: path })
       },
       submit () {
-        this.$store.dispatch('auth/login', this.credentials)
-        .then(result => {
-          this.$store.dispatch('auth/fetch')
-          .then(result => {
-            this.$router.push('/main')
-          })
-        })
-        .catch(error => {
-          this.loading = false
-          if (error.response && error.response.data) {
-            this.alert = {type: 'error', message: error.response.data.message || error.reponse.status}
-          }
-        })
-      },
-      login () {
         if (this.$refs.form.validate()) {
-          login(this.credentials)
-            .then((response) => {
-              this.$session.start()
-              this.$session.set('jwt', response.data.token)
-              store.dispatch('setAuth', true)
-              store.dispatch('setToken', response.data.token)
-
-              var profile = {
-                name: 'Aga Atmaja',
-                photo: 'https://hrmlabsv2.s3.ap-southeast-1.amazonaws.com/internal/images/employees/5ae289d216472f28851b6eb2.png?8905',
-                phone: '081213551169',
-                email: 'aga@gmail.com',
-                company: 'agacat',
-                position: 'Developer'
-              }
-              store.dispatch('setProfile', profile)
-              this.goTo('home')
-            })
-            .catch((error) => {
-              console.log(error)
-            })
+            this.login(this.credentials)
+              .then(result => {
+                this.getUser()
+                .then(response => {
+                  this.setUser(response.data.user)
+                  this.$router.push('/main')
+                })
+              })
+              .catch(error => {
+                this.loading = false
+                if (error.response && error.response.data) {
+                  this.alert = {type: 'error', message: error.response.data.message || error.reponse.status}
+                }
+              })
         }
-      }
+      },
+      // login () {
+      //   if (this.$refs.form.validate()) {
+      //     login(this.credentials)
+      //       .then((response) => {
+      //         this.$session.start()
+      //         this.$session.set('jwt', response.data.token)
+      //         store.dispatch('setAuth', true)
+      //         store.dispatch('setToken', response.data.token)
+
+      //         var profile = {
+      //           name: 'Aga Atmaja',
+      //           photo: 'https://hrmlabsv2.s3.ap-southeast-1.amazonaws.com/internal/images/employees/5ae289d216472f28851b6eb2.png?8905',
+      //           phone: '081213551169',
+      //           email: 'aga@gmail.com',
+      //           company: 'agacat',
+      //           position: 'Developer'
+      //         }
+      //         store.dispatch('setProfile', profile)
+      //         this.goTo('home')
+      //       })
+      //       .catch((error) => {
+      //         console.log(error)
+      //       })
+      //   }
+      // }
     }
   }
 </script>

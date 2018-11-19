@@ -35,6 +35,7 @@ const actions = {
 }
 
 export var profile = {
+  namespaced: true,
   state,
   getters,
   mutations,

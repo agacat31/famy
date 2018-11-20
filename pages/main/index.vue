@@ -35,7 +35,7 @@ export default {
     user () { return (this.$store.state.auth || {}).user || null }
   },
   mounted() {
-    console.log(this.user)
+    // console.log(this.user)
   },
 }
 </script>

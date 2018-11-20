@@ -2,46 +2,43 @@ import api from '~/api'
 import {setAuthToken, resetAuthToken} from '~/utils/auth'
 
 const state = () => ({
-  user: null
+  authData: null
 })
 
 const getters = {
-  user (state) {
-    return state.user
+  authData (state) {
+    return state.authData
   }
 }
 
 const mutations = {
-  SET_USER (state, data) {
-    state.user = data
+  SET_AUTH (state, data) {
+    state.authData = data
   },
-  RESET_USER (state) {
-    state.user = null
+  RESET_AUTH (state) {
+    state.authData = null
   }
 }
 
 const actions = {
-  fetch ({commit}) {
-    return api.auth.me()
-      .then(response => {
-        commit('SET_USER', response.data.user)
-        return response
-      })
-      .catch(error => {
-        commit('RESET_USER')
-        return error
-      })
+  setToken ({commit}, token) {
+    commit('SET_AUTH', {token: token})
   },
   login ({commit}, data) {
     return api.auth.login(data)
       .then(response => {
+        commit('SET_AUTH', {token: response.data.token})
         setAuthToken(response.data.token)
-        this.$cookiz.set('x-access-token', response.data.token, {maxAge: 60 * 60 * 24 * 7})
+        this.$cookiz.set('x-access-token', response.data.token, {maxAge: 60 * 5})
         return response
+      })
+      .catch(error => {
+        commit('RESET_AUTH')
+        return error
       })
   },
   reset ({commit}) {
-    commit('RESET_USER')
+    commit('RESET_AUTH')
     resetAuthToken()
     this.$cookiz.removeAll()
     return Promise.resolve()

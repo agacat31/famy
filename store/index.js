@@ -20,17 +20,10 @@ const store = () => {
           const cookies = this.$cookiz.getAll()
           if (cookies.hasOwnProperty('x-access-token')) {
             setAuthToken(cookies['x-access-token'])
-            dispatch('auth/fetch')
-              .then(result => {
-                resolve(true)
-              })
-              .catch(error => {
-                console.log('Provided token is invalid:', error)
-                resetAuthToken()
-                resolve(false)
-              })
+            dispatch('auth/setToken', cookies['x-access-token'])
+            resolve(true)
           } else {
-            resetAuthToken()
+            dispatch('auth/reset')
             resolve(false)
           }
         })

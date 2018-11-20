@@ -1,14 +1,8 @@
+import api from '~/api'
 import defaultPhoto from '../../static/images/kaneki_ken.png'
 
 const state = () => ({
-  profile: {
-    name: 'Aga Atmaja',
-    photo: defaultPhoto,
-    phone: '081213551169',
-    email: 'aga@gmail.com',
-    company: 'agacat',
-    position: 'Developer'
-  }
+  profile: null
 })
 
 const getters = {
@@ -31,6 +25,16 @@ const mutations = {
 const actions = {
   setProfile ({ commit }, profile) {
     commit('SET_PROFILE', profile)
+  },
+  getProfile ({ commit }) {
+    return api.auth.me()
+      .then(response => {
+        commit('SET_PROFILE', response.data.user)
+        return response
+      })
+      .catch(error => {
+        return error
+      })
   }
 }
 

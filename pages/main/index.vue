@@ -34,8 +34,13 @@ export default {
   computed: {
     user () { return (this.$store.state.auth || {}).user || null }
   },
+  data() {
+    return {
+      profile: (this.$cookiz.get('vuex') || {}).profile.profile || null
+    }
+  },
   mounted() {
-    // console.log(this.user)
+    console.log(this.profile)
   },
 }
 </script>

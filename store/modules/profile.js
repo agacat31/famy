@@ -2,7 +2,14 @@ import api from '~/api'
 import defaultPhoto from '../../static/images/kaneki_ken.png'
 
 const state = () => ({
-  profile: null
+  profile: {
+    country: null,
+    email: null,
+    name: null,
+    phone: null,
+    photo: null,
+    username: null
+  }
 })
 
 const getters = {

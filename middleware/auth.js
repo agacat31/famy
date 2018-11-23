@@ -1,6 +1,6 @@
 export default function ({store, redirect, route}) {
   const userIsLoggedIn = !!store.state.auth.authData
-  const urlRequiresAuth = /^\/main(\/|$)/.test(route.fullPath)
+  const urlRequiresAuth = /^\/(main|home)(\/|$)/.test(route.fullPath)
   const urlRequiresNonAuth = /^\/(login|register)(\/|$)/.test(route.fullPath)
 
   if (!userIsLoggedIn && urlRequiresAuth) {

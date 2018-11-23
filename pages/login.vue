@@ -49,6 +49,9 @@
   import { mapActions, mapGetters } from 'vuex'
   export default {
     layout: 'fullscreen',
+    meta: {
+      requiresAuth: false
+    },
     data: () => ({
       credentials: {
         email: '',

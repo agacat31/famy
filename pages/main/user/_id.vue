@@ -21,6 +21,9 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 export default {
+  meta: {
+    requiresAuth: true
+  },
   computed: {
     ...mapGetters({
       user: 'profile/profile',

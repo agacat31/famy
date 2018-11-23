@@ -127,6 +127,9 @@
 <script>
   // import store from '@/store'
   export default {
+    meta: {
+      requiresAuth: true
+    },
     data () {
       return {
         // Breadcrumbs

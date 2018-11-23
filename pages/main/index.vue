@@ -31,16 +31,20 @@
 
 <script>
 export default {
+  meta: {
+    // auth: { authority: 2 }
+    requiresAuth: true
+  },
   computed: {
-    user () { return (this.$store.state.auth || {}).user || null }
+    // user () { return (this.$store.state.auth || {}).user || null }
   },
   data() {
     return {
-      profile: (this.$cookiz.get('vuex') || {}).profile.profile || null
+      // profile: (this.$cookiz.get('vuex') || {}).profile.profile || null
     }
   },
   mounted() {
-    console.log(this.profile)
+    // console.log(this.profile)
   },
 }
 </script>
